@@ -193,7 +193,8 @@ module.exports = configure(function (ctx) {
       builder: {
         // https://www.electron.build/configuration/configuration
         linux: {
-          target: ["deb"],
+          //target: ["snap", "AppImage", "deb", "rpm"], //it's recommended to use this 4 targets
+          target: ["AppImage"], // currently, using this single target to speedup testing
           icon: "src-electron/icons/linux",
           category: "Utility"
         },

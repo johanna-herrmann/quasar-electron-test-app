@@ -37,13 +37,15 @@ quasar build
 See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
 
 ## Done
-I have done the following steps to bring the project to its current state.
+I have done the following steps to bring the project to its current state. \
+(Omitted steps, reverted or fixed later)
+
 * executed command `quasar create test-app` \
   this creates a new project in directory *test-app* \
   all steps following were done in this new directory
 * executed command `quasar mode add electron`
 * added the icons in directory *src-electron/icons*
-* modified the *quasar.conf.js* (see: electron->build)
+* modified the *quasar.conf.js* (see: electron section)
 * modified the *package.json* (from name to scripts)
 * added the .sh file *deb-icons.sh*
 * modified *src-electron/electron-main.js* (createWindow->mainWindow->icon (line: 22))

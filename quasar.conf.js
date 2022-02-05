@@ -190,29 +190,14 @@ module.exports = configure(function (ctx) {
     // Full list of options: https://quasar.dev/quasar-cli/developing-electron-apps/configuring-electron
     electron: {
       bundler: "builder", // 'packager' or 'builder'
-
-      packager: {
-        // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
-        // OS X / Mac App Store
-        // appBundleId: '',
-        // appCategoryType: '',
-        // osxSign: '',
-        // protocol: 'myapp://path',
-        // Windows only
-        // win32metadata: { ... }
-      },
-
       builder: {
         // https://www.electron.build/configuration/configuration
         linux: {
           target: ["deb"],
-          icon: "linux-512x512.png",
+          icon: "src-electron/icons/linux",
           category: "Utility"
         },
-        appId: "test-app",
-        directories: {
-          buildResources: "src-electron/icons"
-        }
+        appId: "test-app"
       },
 
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain

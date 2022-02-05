@@ -1,11 +1,11 @@
 {
   "name": "test-app",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A Quasar Framework app",
   "productName": "testapp",
   "author": "Mark Herrmann <mark.herrmann@mailbox.org>",
   "homepage": "https://quasar.dev/quasar-cli/developing-electron-apps/build-commands",
-  "repository": "github:mark-herrmann/electron_pocs",
+  "repository": "github:mark-herrmann/quasar-electron-test-app",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",

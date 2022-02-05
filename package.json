@@ -8,6 +8,7 @@
   "repository": "github:mark-herrmann/quasar-electron-test-app",
   "private": true,
   "scripts": {
+    "dev:electron": "quasar dev -m electron --devtools -- --no-sandbox --disable-setuid-sandbox",
     "lint": "eslint --ext .js,.vue ./",
     "format": "prettier --write \"**/*.{js,vue,css,html,md,json}\" --ignore-path .gitignore",
     "test": "echo \"No test specified\" && exit 0"
@@ -22,7 +23,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",
     "@quasar/app": "^3.0.0",
-    "@vue/devtools": "^5.3.4",
+    "@vue/devtools": "6.0.0-beta.19",
     "electron": "^17.0.0",
     "electron-builder": "^22.4.0",
     "eslint": "^7.14.0",

@@ -1,8 +1,10 @@
 <template>
   <q-item clickable tag="a" target="_blank" :href="link">
+    <a href="#" @click="get('item_1')">getFirst</a>
     <q-item-section v-if="icon" avatar>
       <q-icon :name="icon" />
     </q-item-section>
+    <a href="#" @click="add()">ADD</a>
 
     <q-item-section>
       <q-item-label>{{ title }}</q-item-label>
@@ -15,6 +17,11 @@
 
 <script>
 import { defineComponent } from "vue";
+import { addItem, getItem } from "../storage";
+/* eslint-disable no-undef */
+// eslint thinks "electronApi" is undefined
+
+let item = 0;
 
 export default defineComponent({
   name: "EssentialLink",
@@ -39,5 +46,15 @@ export default defineComponent({
       default: "",
     },
   },
+  methods: {
+    add(){
+      addItem(`item_${++item}`)
+    },
+    get(id){
+      getItem(id);
+    }
+  }
 });
+
+
 </script>

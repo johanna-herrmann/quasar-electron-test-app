@@ -7,6 +7,10 @@
  * If you import anything from node_modules, then make sure that the package is specified
  * in package.json > dependencies and NOT in devDependencies
  *
+ * WARNING!
+ * All code before contextBridge.exposeInMainWorld(...) must be run without any error!
+ * Otherwise, the api functions will not be mapped! (because the execution terminates before, without any error report!)
+ *
  * Example (injects window.myAPI.doAThing() into renderer thread):
  *
  *   import { contextBridge } from 'electron'
@@ -15,3 +19,11 @@
  *     doAThing: () => {}
  *   })
  */
+import { contextBridge } from 'electron';
+
+const PouchDB = require('pouchdb-browser');
+const db = new PouchDB('my_database', {adapter: 'idb'});
+
+contextBridge.exposeInMainWorld('electronStorage', {
+  getLocal: () => { return db }
+})

@@ -8,29 +8,35 @@
   "repository": "github:mark-herrmann/quasar-electron-test-app",
   "private": true,
   "scripts": {
-    "dev:electron": "quasar dev -m electron --devtools -- --no-sandbox --disable-setuid-sandbox",
+    "dev:desktop": "quasar dev -m electron --devtools -- --no-sandbox --disable-setuid-sandbox",
+    "dev:android": "export JAVA_HOME=/opt/java8 && quasar dev -m android",
+    "dev:ios": "quasar dev -m ios",
     "lint": "eslint --ext .js,.vue ./",
     "format": "prettier --write \"**/*.{js,vue,css,html,md,json}\" --ignore-path .gitignore",
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "icons": "./generate-icons.sh",
+    "npmyarn": "yarn $*"
   },
   "dependencies": {
-    "@quasar/extras": "^1.0.0",
-    "core-js": "^3.6.5",
-    "quasar": "^2.0.0",
-    "vue": "^3.0.0",
-    "vue-router": "^4.0.0"
+    "@quasar/extras": "1.12.4",
+    "core-js": "3.21.0",
+    "pouchdb": "7.2.2",
+    "pouchdb-browser": "7.2.2",
+    "quasar": "2.5.3",
+    "vue": "3.2.29",
+    "vue-router": "4.0.12"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.13.14",
-    "@quasar/app": "^3.0.0",
+    "@babel/eslint-parser": "7.17.0",
+    "@quasar/app": "3.3.2",
     "@vue/devtools": "6.0.0-beta.19",
-    "electron": "^17.0.0",
-    "electron-builder": "^22.4.0",
-    "eslint": "^7.14.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-vue": "^7.0.0",
-    "eslint-webpack-plugin": "^2.4.0",
-    "prettier": "^2.5.1"
+    "electron": "17.0.0",
+    "electron-builder": "22.14.5",
+    "eslint": "7.32.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-vue": "7.20.0",
+    "eslint-webpack-plugin": "2.6.0",
+    "prettier": "2.5.1"
   },
   "browserslist": [
     "last 10 Chrome versions",

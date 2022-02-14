@@ -19,3 +19,4 @@ echo done. generated 6 icons in src-electron/icons/linux/
 
 # unnecessary and buggy src-cordova/config.xml modification fix (restore file)
 cp src-cordova/config.xml.backup src-cordova/config.xml
+rm src-cordova/config.xml.backup

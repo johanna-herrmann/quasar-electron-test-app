@@ -19,11 +19,3 @@
  *     doAThing: () => {}
  *   })
  */
-import { contextBridge } from 'electron';
-
-const PouchDB = require('pouchdb-browser');
-const db = new PouchDB('my_database', {adapter: 'idb'});
-
-contextBridge.exposeInMainWorld('electronStorage', {
-  getLocal: () => { return db }
-})

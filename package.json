@@ -10,18 +10,17 @@
   "scripts": {
     "dev:desktop": "quasar dev -m electron --devtools -- --no-sandbox --disable-setuid-sandbox",
     "dev:android": "export JAVA_HOME=/opt/java8 && quasar dev -m android",
-    "dev:ios": "quasar dev -m ios",
     "lint": "eslint --ext .js,.vue ./",
     "format": "prettier --write \"**/*.{js,vue,css,html,md,json}\" --ignore-path .gitignore",
     "test": "echo \"No test specified\" && exit 0",
-    "icons": "./generate-icons.sh",
-    "npmyarn": "yarn $*"
+    "icons": "chmod a+x ./scripts/generate-icons.sh && ./scripts/generate-icons.sh",
+    "postinstall": "chmod a+x ./scripts/unpkg.sh && ./scripts/unpkg.sh"
   },
   "dependencies": {
     "@quasar/extras": "1.12.4",
     "core-js": "3.21.0",
     "pouchdb": "7.2.2",
-    "pouchdb-browser": "7.2.2",
+    "pouchdb-adapter-cordova-sqlite": "2.0.8",
     "quasar": "2.5.3",
     "vue": "3.2.29",
     "vue-router": "4.0.12"

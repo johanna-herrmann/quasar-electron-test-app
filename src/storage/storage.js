@@ -1,5 +1,4 @@
 import { Platform } from 'quasar';
-import PouchDB from "pouchdb";
 
 let localDb;
 
@@ -27,6 +26,7 @@ export function getItem(id){
     console.log(new Date().getTime());
     console.log(doc.content);
     console.log(doc.title);
+    alert(doc.title);
   }).catch(function (err) {
     console.error(err);
   });

@@ -1,6 +1,8 @@
 <template>
   <q-item>
-    <a href="#" @click="get('item_1')">getFirst</a> ------- <a href="#" @click="add()">ADD</a>
+    <a href="#" @click="getLast()" v-if="created">getLast</a>
+    -------
+    <a href="#" @click="add()">ADD</a>
     <q-item clickable tag="a" target="_blank" :href="link">
       <q-item-section v-if="icon" avatar>
         <q-icon :name="icon" />
@@ -23,6 +25,7 @@ import { addItem, getItem } from "../storage/storage";
 // eslint thinks "electronApi" is undefined
 
 let item = 0;
+const timestamp = new Date().getTime();
 
 export default defineComponent({
   name: "EssentialLink",
@@ -47,12 +50,18 @@ export default defineComponent({
       default: "",
     },
   },
+  data: ()=>{
+    return {
+      created: false
+    };
+  },
   methods: {
     add(){
-      addItem(`item_${++item}`)
+      addItem(`item_${timestamp}_${++item}`);
+      this.created = true;
     },
-    get(id){
-      getItem(id);
+    getLast(){
+      getItem(`item_${timestamp}_${item}`);
     }
   }
 });

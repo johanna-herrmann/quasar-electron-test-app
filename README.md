@@ -2,6 +2,30 @@
 
 A Quasar Framework test-app (for proof of concept)
 
+## Prerequisites
+* On Windows systems: install git bash
+* you will need imageMagic to be installed, to use the tool, named convert
+  * check: run command `convert --version` \
+    if it fails, install imageMagic
+  * installation
+    * windows: Download [imageMagic](https://imagemagick.org/script/download.php) and install it. \
+      Remember to check the checkbox: "install legacy utils (e.g. convert)"
+    * linux: install imageMagic via default package manager (apt-get, yum, etc.) \
+      debian/ubuntu example: `sudo apt install imageMagic` \
+      redhat example: `sudo yum install imageMagic`
+    * mac: install imageMagic via homebrew: `brew install imageMagic`
+* Install NPM (version >= 14) and yarn (version  >= 1)
+* make sure that the [Yarn global install location](https://classic.yarnpkg.com/en/docs/cli/global/) is in your $PATH environment variable
+* Run following commands to install quasar, cordova and icongenie globally:
+  ```
+  yarn add -g quasar
+  yarn add -g cordova
+  yarn add -g icongenie
+  ```
+* [Install AndroidStudio](https://quasar.dev/quasar-cli/developing-cordova-apps/preparation) \
+  important: also add path to $ANDROID_SDK_ROOT/emulator to your $PATH environment variable
+* Setup your android device (enable USB-Debugging)
+
 ## Install the dependencies
 
 ```bash

@@ -19,3 +19,27 @@
  *     doAThing: () => {}
  *   })
  */
+
+import { contextBridge } from 'electron';
+import fs from 'fs';
+
+const runCallback = (successCallback, errorCallback, error, data) => {
+  if(error){
+    errorCallback(error);
+    return;
+  }
+  successCallback(data);
+};
+
+contextBridge.exposeInMainWorld('electronApi', {
+  readFile: (path, successCallback, errorCallback) => {
+    fs.readFile(path, (error, data) => {
+      runCallback(successCallback, errorCallback, error, data);
+    });
+  },
+  writeFile: (path, content, successCallback, errorCallback) => {
+    fs.writeFile(path, content, (error, data) => {
+      runCallback(successCallback, errorCallback, error, data);
+    });
+  }
+})

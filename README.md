@@ -84,8 +84,10 @@ steps done, to bring this project to current state (ordered, categorized and con
   yarn add --dev "@vue/devtools@6.0.0-beta.19"
   yarn add pouchdb
   yarn add pouchdb-adapter-cordova-sqlite
+  yarn add fs
   ```
 * modified/created following files
+  * modified .gitignore
   * created *./scripts* directory with shell scripts *generate-icons.sh* and *unpkg.sh* \
     (see comments in script files)
   * modified *./package.json* (from name to scripts) \
@@ -95,7 +97,9 @@ steps done, to bring this project to current state (ordered, categorized and con
   * modified *./src-electron/electron-main.js* (createWindow->mainWindow->icon (line: 22))
   * created icon *./icon.png* (at least 512x512, png, with transparency)
   * modified file *./scr-cordova/config.xml* (platform and plugin tags, mainly for icons)
+  * modified file *./scr-electron/electron-preload.js* (added electronApi binding for fs)
   * created file *./src/storage/storage.js* (add and get functions for local pouchdb storage)
+  * created file *./src/files/fileAccess.js* (add and get functions for local pouchdb storage)
   * modified file *./src/components/EssentialLink.vue* (to test the storage functions)
 * executed file *./scripts/generate-icons.sh* \
   replace *./icon.png* (recommended size: 1024x1024, must be a .png with transparency)

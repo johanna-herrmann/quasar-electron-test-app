@@ -100,7 +100,7 @@ steps done, to bring this project to current state (ordered, categorized and con
   * modified file *./scr-electron/electron-preload.js* (added electronApi binding for fs)
   * created file *./src/storage/storage.js* (add and get functions for local pouchdb storage)
   * created file *./src/files/fileAccess.js* (add and get functions for local pouchdb storage)
-  * modified file *./src/components/EssentialLink.vue* (to test the storage functions)
+  * modified file *./src/components/App.vue* (to simply test some things)
 * executed file *./scripts/generate-icons.sh* \
   replace *./icon.png* (recommended size: 1024x1024, must be a .png with transparency)
   and re-run *./scripts/generate-icons.sh* to replace all icons. \

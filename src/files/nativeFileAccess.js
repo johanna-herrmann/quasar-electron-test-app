@@ -21,12 +21,12 @@ const getPathForMobile = function(specialFolder) {
       //despite the name 'externalDataDirectory' this is the internal storage accessible from any file manager
       //path: <INTERNAL>/Android/data/<APP-ID>/files/
       //example: <INTERNAL>/Android/data/de.markherrmann.testapp/files/
-      cordova.file.externalDataDirectory, // content: 1645116500946
+      cordova.file.externalDataDirectory,
 
       //this is the true external sd storage (set at the beginning of this file in the event listener function)
       //path: <EXTERNAL>/Android/data/<APP-ID>/files/
       //example: <EXTERNAL>/Android/data/de.markherrmann.testapp/files/
-      cordova.file.externalSdCardDirectory// content: 1645116519784
+      cordova.file.externalSdCardDirectory
     ],
     ios: [
       cordova.file.documentsDirectory+'NoCloud/', //does it work?

@@ -14,6 +14,7 @@
     "format": "prettier --write \"**/*.{js,vue,css,html,md,json}\" --ignore-path .gitignore",
     "test": "echo \"No test specified\" && exit 0",
     "icons": "chmod a+x ./scripts/generate-icons.sh && ./scripts/generate-icons.sh",
+    "inst": "yarn && cd src-cordova && yarn && cd -",
     "postinstall": "chmod a+x ./scripts/unpkg.sh && ./scripts/unpkg.sh"
   },
   "dependencies": {

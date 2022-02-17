@@ -25,6 +25,15 @@ A Quasar Framework test-app (for proof of concept)
 * [Install AndroidStudio](https://quasar.dev/quasar-cli/developing-cordova-apps/preparation) \
   important: also add path to $ANDROID_SDK_ROOT/emulator to your $PATH environment variable
 * Setup your android device (enable USB-Debugging)
+* Connect your Android Smartphone via USB
+* Open Android Studio and select your smartphone as physical device
+
+## Remote Debugging Android apps on dev
+On development mode (`yarn dev:android`) you can remote debug your application following the steps below:
+* run app in development mode with `yarn dev:android`
+* Open Chrome and go to chrome://inspect/#devices
+* Below *Remote Target* click on the linked name of your application
+* Now you can debug your app via Chrome Devtools, using your desktop.
 
 ## Install the dependencies
 
@@ -41,7 +50,7 @@ cd -
 # desktop
 yarn dev:desktop
 
-# android
+# android (smartphone must be connected via usb)
 yarn dev:android
 ```
 

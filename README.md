@@ -30,6 +30,9 @@ A Quasar Framework test-app (for proof of concept)
 
 ```bash
 yarn
+cd src-cordova
+yarn
+cd -
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)

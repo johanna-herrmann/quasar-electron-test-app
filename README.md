@@ -38,10 +38,7 @@ On development mode (`yarn dev:android`) you can remote debug your application f
 ## Install the dependencies
 
 ```bash
-yarn
-cd src-cordova
-yarn
-cd -
+yarn inst
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)

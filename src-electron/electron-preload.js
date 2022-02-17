@@ -34,7 +34,9 @@ const runCallback = (successCallback, errorCallback, error, data) => {
 contextBridge.exposeInMainWorld('electronApi', {
   readFile: (path, successCallback, errorCallback) => {
     fs.readFile(path, (error, data) => {
-      runCallback(successCallback, errorCallback, error, data);
+      // from uint8Array to string (is data always uint8Array?)
+      const content = new TextDecoder().decode(data);
+      runCallback(successCallback, errorCallback, error, content);
     });
   },
   writeFile: (path, content, successCallback, errorCallback) => {

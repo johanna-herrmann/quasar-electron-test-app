@@ -78,6 +78,8 @@ steps done, to bring this project to current state (ordered, categorized and con
   cd src-cordova
   cordova platform add android
   cordova plugin add cordova-sqlite-storage
+  cordova plugin add cordova-plugin-file
+  cordova plugin add cordova.plugins.diagnostic
   cd -
 
   # install dependencies

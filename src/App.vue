@@ -8,8 +8,12 @@
 
     <h3>File Access (Direct)</h3>
     <button @click="writeAFile()">Write</button> (Writes a test file with timestamp as content)<br>
-    <button @click="readAFile()" v-if="written">Read</button> (Gets the recent written file content)
-
+    <button @click="readAFile()" v-if="isWritten()">Read</button> (Gets the recent written file content)
+    <div v-if="isMobile()" >
+      <input type="checkbox" v-model="specialFolder">
+      <span v-if="isAndroid()">Auf externer SD speichern</span>
+      <span v-if="isIos()">In iCloud-synchronisiertem Ordner speichern</span>
+    </div>
   </div>
 
   <!-- this was the original template content -->
@@ -17,8 +21,9 @@
 </template>
 <script>
 import { defineComponent } from "vue";
+import {Platform} from "quasar";
 import { addItem, getItem } from "./storage/storage";
-import { readFile, writeFile } from "./files/fileAccess";
+import { readFile, writeFile } from "./files/nativeFileAccess";
 
 let item = 0;
 const timestamp = new Date().getTime();
@@ -29,11 +34,8 @@ const successWriteCallback = (data) => {
 };
 
 const successReadCallback = (data) => {
-  // from uint8Array to string (is data always uint8Array?)
-  const content = new TextDecoder().decode(data);
   console.log(data);
-  console.log(content);
-  alert(content);
+  alert(data);
 };
 
 const errorCallback = (error) => {
@@ -45,7 +47,9 @@ export default defineComponent({
   data: ()=>{
     return {
       created: false,
-      written: false
+      written: false,
+      writtenSpecial: false,
+      specialFolder: false
     };
   },
   methods: {
@@ -58,11 +62,27 @@ export default defineComponent({
     },
     writeAFile(){
       const content = new Date().getTime();
-      writeFile('./lastAccess.txt', content.toString(), successWriteCallback, errorCallback);
-      this.written = true;
+      writeFile('lastAccess.txt', content.toString(), successWriteCallback, errorCallback, this.specialFolder);
+      if(Platform.is.desktop || !this.specialFolder){
+        this.written = true;
+      } else {
+        this.writtenSpecial = true;
+      }
     },
     readAFile(){
-      readFile('./lastAccess.txt', successReadCallback, errorCallback);
+      readFile('lastAccess.txt', successReadCallback, errorCallback, this.specialFolder);
+    },
+    isMobile(){
+      return Platform.is.mobile;
+    },
+    isAndroid(){
+      return Platform.is.android;
+    },
+    isIos(){
+      return Platform.is.ios;
+    },
+    isWritten(){
+      return (Platform.is.desktop || !this.specialFolder) ? this.written : this.writtenSpecial;
     }
   }
 });

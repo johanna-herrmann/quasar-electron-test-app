@@ -38,7 +38,11 @@ On development mode (`yarn dev:android`) you can remote debug your application f
 ## Install the dependencies
 
 ```bash
-yarn inst
+# simple
+yarn i
+
+# clean
+yarn ci
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)

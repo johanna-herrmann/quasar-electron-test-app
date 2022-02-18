@@ -14,7 +14,8 @@
     "format": "prettier --write \"**/*.{js,vue,css,html,md,json}\" --ignore-path .gitignore",
     "test": "echo \"No test specified\" && exit 0",
     "icons": "chmod a+x ./scripts/generate-icons.sh && ./scripts/generate-icons.sh",
-    "inst": "yarn && cd src-cordova && yarn",
+    "i": "yarn && cd src-cordova && yarn",
+    "ci": "rm -rf node_modules && yarn --frozen-lockfile && cd src-cordova && rm -rf node_modules && yarn --frozen-lockfile",
     "postinstall": "chmod a+x ./scripts/unpkg.sh && ./scripts/unpkg.sh"
   },
   "dependencies": {

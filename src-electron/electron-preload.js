@@ -22,6 +22,7 @@
 
 import { contextBridge } from 'electron';
 import fs from 'fs';
+import os from 'os';
 
 const runCallback = (successCallback, errorCallback, error, data) => {
   if(error){
@@ -32,6 +33,11 @@ const runCallback = (successCallback, errorCallback, error, data) => {
 };
 
 contextBridge.exposeInMainWorld('electronApi', {
+  getHomePath: () => {
+    const homePath = os.homedir();
+    const trailingSlash = homePath.includes('/') ? '/' : '\\';
+    return homePath + trailingSlash;
+  },
   readFile: (path, successCallback, errorCallback) => {
     fs.readFile(path, (error, data) => {
       // from uint8Array to string (is data always uint8Array?)

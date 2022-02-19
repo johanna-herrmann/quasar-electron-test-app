@@ -76,17 +76,29 @@ const writeFileMobile = function(filename, content, successCallback, errorCallba
   });
 }
 
+const getPathForDesktop = function (){
+  return './';
+
+
+  // for root of home directory (/home/max, C:\Users\max, etc.)
+  //return window.electronApi.getHomePath()+'/';
+}
+
 const readFile = function(filename, successCallback, errorCallback, specialFolder) {
+  const path = getPathForDesktop();
+  console.log(path);
   if(Platform.is.desktop){
-    window.electronApi.readFile('./'+filename, successCallback, errorCallback);
+    window.electronApi.readFile(path + filename, successCallback, errorCallback);
   } else {
     readFileMobile(filename, successCallback, errorCallback, specialFolder);
   }
 };
 
 const writeFile = function(filename, content, successCallback, errorCallback, specialFolder) {
+  const path = getPathForDesktop();
+  console.log(path);
   if(Platform.is.desktop){
-    window.electronApi.writeFile('./'+filename, content, successCallback, errorCallback);
+    window.electronApi.writeFile(path + filename, content, successCallback, errorCallback);
   } else {
     writeFileMobile(filename, content, successCallback, errorCallback, specialFolder);
   }

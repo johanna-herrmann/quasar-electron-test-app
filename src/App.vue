@@ -11,9 +11,16 @@
     <button @click="readAFile()" v-if="isWritten()">Read</button> (Gets the recent written file content)
     <div v-if="isMobile()" >
       <input type="checkbox" v-model="specialFolder">
-      <span v-if="isAndroid()">Auf externer SD speichern</span>
-      <span v-if="isIos()">In iCloud-synchronisiertem Ordner speichern</span>
+      <span v-if="isAndroid()">Save to external SD Card</span>
+      <span v-if="isIos()">Save in iCloud-synchronized directory</span>
     </div>
+
+    <h3>File Access (HTML5 API)</h3>
+    <input type="checkbox" v-model="filesSelection.multiple" @click="resetFileSelection()"> Multiple Choice<br>
+    <input v-bind:id="filesSelection.inputId" type="file" v-bind:multiple="filesSelection.multiple"><br>
+    <button @click="readFiles()">Read files</button> (Shows name, type, size and content)<br>
+    <textarea v-bind:id="filesSelection.outputId" placeholder="outputs will appear here"></textarea>
+    <br><br><br>
   </div>
 
   <!-- this was the original template content -->
@@ -24,6 +31,7 @@ import { defineComponent } from "vue";
 import {Platform} from "quasar";
 import { addItem, getItem } from "./storage/storage";
 import { readFile, writeFile } from "./files/nativeFileAccess";
+import { readSelectedFiles } from "./files/html5FileAccess";
 
 let item = 0;
 const timestamp = new Date().getTime();
@@ -49,7 +57,12 @@ export default defineComponent({
       created: false,
       written: false,
       writtenSpecial: false,
-      specialFolder: false
+      specialFolder: false,
+      filesSelection: {
+        inputId: 'filesInput',
+        outputId: 'output',
+        multiple: false
+      }
     };
   },
   methods: {
@@ -83,6 +96,13 @@ export default defineComponent({
     },
     isWritten(){
       return (Platform.is.desktop || !this.specialFolder) ? this.written : this.writtenSpecial;
+    },
+    readFiles(){
+      readSelectedFiles(this.filesSelection);
+    },
+    resetFileSelection(){
+      document.querySelector(`#${this.filesSelection.inputId}`).value='';
+      document.querySelector(`#${this.filesSelection.outputId}`).value='';
     }
   }
 });

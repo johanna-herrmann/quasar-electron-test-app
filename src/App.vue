@@ -20,6 +20,26 @@
     <input v-bind:id="filesSelection.inputId" type="file" v-bind:multiple="filesSelection.multiple"><br>
     <button @click="readFiles()">Read files</button> (Shows name, type, size and content)<br>
     <textarea v-bind:id="filesSelection.outputId" placeholder="outputs will appear here"></textarea>
+
+    <h3>JWT</h3>
+    <div>
+      <button @click="create()">Create Token</button> (creates a RSA signed token with random sub in payload)
+    </div>
+    <div v-if="jwtObject.created">
+      <button @click="verify()">Verify Token</button> (verifies recently created token)
+    </div>
+    <div v-if="jwtObject.created">
+      <button @click="invalidateTokenPayload()">Invalidate Payload</button> (makes the recently created token payload invalidate)
+    </div>
+    <div v-if="jwtObject.created">
+      <button @click="invalidateTokenAlgo()">Invalidate Algorithm</button> (sets algo to none, which should be evaluated to invalid token)
+    </div>
+    <div v-if="jwtObject.created">
+      Token: {{jwtObject.token}}<br>
+      decoded header: {{JSON.stringify(jwtObject.decoded.header)}}<br>
+      decoded payload: {{JSON.stringify(jwtObject.decoded.payload)}}
+    </div>
+
     <br><br><br>
   </div>
 
@@ -32,6 +52,7 @@ import {Platform} from "quasar";
 import { addItem, getItem } from "./storage/storage";
 import { readFile, writeFile } from "./files/nativeFileAccess";
 import { readSelectedFiles } from "./files/html5FileAccess";
+import { createToken, verifyToken, invalidatePayload, invalidateAlgo } from "./jwt/jwt";
 
 let item = 0;
 const timestamp = new Date().getTime();
@@ -62,6 +83,11 @@ export default defineComponent({
         inputId: 'filesInput',
         outputId: 'output',
         multiple: false
+      },
+      jwtObject: {
+        created: false,
+        token: '',
+        decoded: ''
       }
     };
   },
@@ -103,6 +129,18 @@ export default defineComponent({
     resetFileSelection(){
       document.querySelector(`#${this.filesSelection.inputId}`).value='';
       document.querySelector(`#${this.filesSelection.outputId}`).value='';
+    },
+    create(){
+      createToken(this.jwtObject);
+    },
+    verify(){
+      verifyToken(this.jwtObject.token);
+    },
+    invalidateTokenPayload(){
+      invalidatePayload(this.jwtObject);
+    },
+    invalidateTokenAlgo(){
+      invalidateAlgo(this.jwtObject);
     }
   }
 });

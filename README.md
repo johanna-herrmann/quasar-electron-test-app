@@ -102,6 +102,8 @@ steps done, to bring this project to current state (ordered, categorized and con
   yarn add fs
   yarn add os
   yarn add node-forge
+  yarn add scrypt-js
+  yarn add js-base64
   ```
 * modified/created following files
   * modified .gitignore
@@ -118,6 +120,7 @@ steps done, to bring this project to current state (ordered, categorized and con
   * created file *./src/storage/storage.js* (add and get functions for local pouchdb storage)
   * created directory *./src/files/* (read and write file access, native and via html5 api)
   * created directory *./src/jwt/* (create and verify JSON Web Tokens)
+  * created directory *./src/crypto/* (scrypt)
   * modified file *./src/components/App.vue* (to simply test some things)
 * executed file *./scripts/generate-icons.sh* \
   replace *./icon.png* (recommended size: 1024x1024, must be a .png with transparency)

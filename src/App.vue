@@ -40,6 +40,19 @@
       decoded payload: {{JSON.stringify(jwtObject.decoded.payload)}}
     </div>
 
+    <h3>Crypto</h3>
+    Some nice crypto features
+
+    <h4>Scrypt</h4>
+    <label>Input: <input type="text" v-model="scryptObject.password"></label><br>
+    <button v-bind:disabled="scryptObject.running" @click="genSaltAndKek()">Create salt &amp; KEK</button> (Creates random salt & KEK (Key encryption key) based on given password, via Scrypt)<br>
+    salt: {{base64Encode(scryptObject.salt)}}<br>
+    progress:
+    <span v-if="scryptObject.running">
+      <progress v-bind:value="scryptObject.progress" max="1">{(scryptObject.progress * 100).toFixed(1)} %</progress>
+    </span>
+    <br>
+    KEK: {{base64Encode(scryptObject.kek)}}
     <br><br><br>
   </div>
 
@@ -53,6 +66,9 @@ import { addItem, getItem } from "./storage/storage";
 import { readFile, writeFile } from "./files/nativeFileAccess";
 import { readSelectedFiles } from "./files/html5FileAccess";
 import { createToken, verifyToken, invalidatePayload, invalidateAlgo } from "./jwt/jwt";
+import { Base64 } from 'js-base64';
+import { getRandomBytes } from './crypto/random';
+import { scrypt } from './crypto/scrypt';
 
 let item = 0;
 const timestamp = new Date().getTime();
@@ -88,10 +104,20 @@ export default defineComponent({
         created: false,
         token: '',
         decoded: ''
+      },
+      scryptObject: {
+        password: '',
+        salt: '',
+        kek: '',
+        progress: 0,
+        running: false
       }
     };
   },
   methods: {
+    base64Encode(data){
+      return Base64.fromUint8Array(data)
+    },
     add(){
       addItem(`item_${timestamp}_${++item}`);
       this.created = true;
@@ -141,6 +167,13 @@ export default defineComponent({
     },
     invalidateTokenAlgo(){
       invalidateAlgo(this.jwtObject);
+    },
+    genSaltAndKek(){
+      this.scryptObject.running = true;
+      this.scryptObject.progress = 0;
+      this.scryptObject.kek = '';
+      this.scryptObject.salt = getRandomBytes(32);
+      scrypt(this.scryptObject);
     }
   }
 });

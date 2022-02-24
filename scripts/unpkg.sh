@@ -6,5 +6,5 @@
 # if the issue happens to other dependencies, add them here
 # stop to do this workaround when issue is solved
 
-cp ./node_modules/pouchdb/dist/pouchdb.min.js ./src/unpkg/pouchdb.js
-cp ./node_modules/pouchdb-adapter-cordova-sqlite/dist/pouchdb.cordova-sqlite.min.js ./src/unpkg/pouchdb.cordova-sqlite.js
+cp ./node_modules/pouchdb/dist/pouchdb.min.js ./src/lib/unpkg/pouchdb.js
+cp ./node_modules/pouchdb-adapter-cordova-sqlite/dist/pouchdb.cordova-sqlite.min.js ./src/lib/unpkg/pouchdb.cordova-sqlite.js

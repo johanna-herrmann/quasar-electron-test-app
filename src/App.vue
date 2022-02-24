@@ -44,15 +44,25 @@
     Some nice crypto features
 
     <h4>Scrypt</h4>
-    <label>Input: <input type="text" v-model="scryptObject.password"></label><br>
-    <button v-bind:disabled="scryptObject.running" @click="genSaltAndKek()">Create salt &amp; KEK</button> (Creates random salt & KEK (Key encryption key) based on given password, via Scrypt)<br>
-    salt: {{base64Encode(scryptObject.salt)}}<br>
+    <label>Input: <input type="text" v-model="keyData.password"></label><br>
+    <button v-bind:disabled="keyData.running" @click="genSaltAndKek()">Create salt &amp; KEK</button> (Creates random salt & KEK (Key encryption key) based on given password, via Scrypt)<br>
+    salt: {{base64Encode(keyData.salt)}}<br>
     progress:
-    <span v-if="scryptObject.running">
-      <progress v-bind:value="scryptObject.progress" max="1">{(scryptObject.progress * 100).toFixed(1)} %</progress>
+    <span v-if="keyData.running">
+      <progress v-bind:value="keyData.progress" max="1">{(keyData.progress * 100).toFixed(1)} %</progress>
     </span>
     <br>
-    KEK: {{base64Encode(scryptObject.kek)}}
+    KEK: {{base64Encode(keyData.kek)}}
+    <br><br>
+
+    <h4>Wrap Key / Unwrap key</h4>
+    <div v-if="keyData.kek.length === 0">First create salt and kek, above</div>
+    <div v-else>
+      <button @click="wrap()">WrapKey</button> (generates a random key and wraps it (encryption with aes-gcm, using the kek and first 12 byte of the salt, above))<br>
+      <button v-if="keyData.wrappedKey.length > 0" @click="unwrap()">Unwrap</button><br>
+      wrapped key: {{base64Encode(keyData.wrappedKey)}}<br>
+      key: {{base64Encode(keyData.key)}}
+    </div>
     <br><br><br>
   </div>
 
@@ -62,13 +72,14 @@
 <script>
 import { defineComponent } from "vue";
 import {Platform} from "quasar";
-import { addItem, getItem } from "./storage/storage";
-import { readFile, writeFile } from "./files/nativeFileAccess";
-import { readSelectedFiles } from "./files/html5FileAccess";
-import { createToken, verifyToken, invalidatePayload, invalidateAlgo } from "./jwt/jwt";
-import { Base64 } from 'js-base64';
-import { getRandomBytes } from './crypto/random';
-import { scrypt } from './crypto/scrypt';
+import { addItem, getItem } from "src/lib/storage/storage";
+import { readFile, writeFile } from "src/lib/files/nativeFileAccess";
+import { readSelectedFiles } from "src/lib/files/html5FileAccess";
+import { createToken, verifyToken, invalidatePayload, invalidateAlgo } from "./lib/jwt/jwt";
+import { uint8ToBase64 } from 'src/lib/conversions';
+import { getRandomBytes } from 'src/lib/crypto/random';
+import { scrypt } from 'src/lib/crypto/scrypt';
+import { wrapKey, unwrapKey } from 'src/lib/crypto/keyWrap';
 
 let item = 0;
 const timestamp = new Date().getTime();
@@ -105,18 +116,20 @@ export default defineComponent({
         token: '',
         decoded: ''
       },
-      scryptObject: {
+      keyData: {
         password: '',
         salt: '',
         kek: '',
         progress: 0,
-        running: false
+        running: false,
+        wrappedKey: '',
+        key: ''
       }
     };
   },
   methods: {
     base64Encode(data){
-      return Base64.fromUint8Array(data)
+      return uint8ToBase64(data);
     },
     add(){
       addItem(`item_${timestamp}_${++item}`);
@@ -169,11 +182,17 @@ export default defineComponent({
       invalidateAlgo(this.jwtObject);
     },
     genSaltAndKek(){
-      this.scryptObject.running = true;
-      this.scryptObject.progress = 0;
-      this.scryptObject.kek = '';
-      this.scryptObject.salt = getRandomBytes(32);
-      scrypt(this.scryptObject);
+      this.keyData.running = true;
+      this.keyData.progress = 0;
+      this.keyData.kek = '';
+      this.keyData.salt = getRandomBytes(32);
+      scrypt(this.keyData);
+    },
+    wrap(){
+      wrapKey(this.keyData);
+    },
+    unwrap(){
+      unwrapKey(this.keyData);
     }
   }
 });

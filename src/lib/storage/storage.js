@@ -47,14 +47,14 @@ function getOptions(){
 }
 
 function setLocalDb(){
-  const PouchDB = require('../unpkg/pouchdb');
+  const PouchDB = require('src/lib/unpkg/pouchdb');
   if(Platform.is.desktop){
     localDb = new PouchDB('testAppDatabase', {adapter: 'idb'});
     return;
   }
   document.addEventListener('deviceready', () => {
     cordova.sqlitePlugin = window.sqlitePlugin;
-    PouchDB.plugin(require('../unpkg/pouchdb.cordova-sqlite'));
+    PouchDB.plugin(require('src/lib/unpkg/pouchdb.cordova-sqlite'));
     localDb = new PouchDB('testApp2.db', getOptions());
   });
 }

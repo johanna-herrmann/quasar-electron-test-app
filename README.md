@@ -117,10 +117,7 @@ steps done, to bring this project to current state (ordered, categorized and con
   * created icon *./icon.png* (at least 512x512, png, with transparency)
   * modified file *./scr-cordova/config.xml* (platform and plugin tags, mainly for icons)
   * modified file *./scr-electron/electron-preload.js* (added electronApi binding for fs)
-  * created file *./src/storage/storage.js* (add and get functions for local pouchdb storage)
-  * created directory *./src/files/* (read and write file access, native and via html5 api)
-  * created directory *./src/jwt/* (create and verify JSON Web Tokens)
-  * created directory *./src/crypto/* (scrypt)
+  * created directory *./src/lib/*
   * modified file *./src/components/App.vue* (to simply test some things)
 * executed file *./scripts/generate-icons.sh* \
   replace *./icon.png* (recommended size: 1024x1024, must be a .png with transparency)

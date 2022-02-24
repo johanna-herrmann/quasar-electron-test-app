@@ -2,10 +2,7 @@ import forge from 'node-forge';
 import jwtDecode from 'jwt-decode';
 import { publicKeyPem, privateKeyPem } from "./keyPair";
 
-
-// noinspection JSUnresolvedVariable (inspection bug?)
 const pki = forge.pki;
-// noinspection JSUnresolvedVariable (inspection bug?)
 const md = forge.md;
 
 // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript#answer-1349426
@@ -50,7 +47,6 @@ const createToken = function (jwtObject){
   const encodedPayload = encodePart(JSON.stringify(payload));
   const sha256 = md.sha256.create();
   sha256.update(`${encodedHeader}.${encodedPayload}`, 'raw');
-  // noinspection SpellCheckingInspection
   const signature = privateKey.sign(sha256, "RSASSA-PKCS1-V1_5");
   const encodedSignature = encodePart(signature);
   jwtObject.token = `${encodedHeader}.${encodedPayload}.${encodedSignature}`;
@@ -81,7 +77,6 @@ const invalidatePayload = function (jwtObject){
   const token = jwtObject.token;
   const header = token.split('.')[0];
   const signature = token.split('.')[2];
-  // noinspection SpellCheckingInspection
   const invalidPayload = 'eyJzdWIiOiJpbnZhbGlkQSJ9';
   const invalidToken = `${header}.${invalidPayload}.${signature}`;
   console.log({invalidToken});
@@ -96,7 +91,6 @@ const invalidateAlgo = function (jwtObject){
   const token = jwtObject.token;
   const payload = token.split('.')[1];
   const signature = token.split('.')[2];
-  // noinspection SpellCheckingInspection
   const invalidHeader = 'eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0';
   const invalidToken = `${invalidHeader}.${payload}.${signature}`;
   console.log({invalidToken});
